@@ -64,10 +64,23 @@ const addBookHanlder = (request, h) => {
 }
 
 const getAllBooksHandler = (request, h) => {
+
+
+    let books_result = [];
+
+    for (const element of books) {
+        let id = element.id;
+        let name = element.name;
+        let publisher = element.publisher;
+        books_result.push({
+            id, name, publisher
+        });
+    }
+
     const response = h.response({
         status: 'success',
         data: {
-            books,
+            books_result,
         },
     });
 
@@ -122,7 +135,7 @@ const editNoteByIdHandler = (request, h) => {
     if (!name) {
         const response = h.response({
             status: 'fail',
-            message: "Gagal menambahkan buku. Mohon isi nama buku",
+            message: "Gagal memperbarui buku. Mohon isi nama buku",
         });
         response.code(400);
         return response;
@@ -157,7 +170,7 @@ const editNoteByIdHandler = (request, h) => {
 
     const response = h.response({
         status: 'fail',
-        message: 'Gagal memperbarui Buku. Id tidak ditemukan',
+        message: 'Gagal memperbarui buku. Id tidak ditemukan',
     });
     response.code(404);
     return response;
