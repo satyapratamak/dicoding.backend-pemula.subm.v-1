@@ -66,21 +66,18 @@ const addBookHanlder = (request, h) => {
 const getAllBooksHandler = (request, h) => {
 
 
-    let books_result = [];
+    let books_result = books;
 
-    for (const element of books) {
-        let id = element.id;
-        let name = element.name;
-        let publisher = element.publisher;
-        books_result.push({
-            id, name, publisher
-        });
-    }
+
 
     const response = h.response({
         status: 'success',
         data: {
-            books_result,
+            books: books_result.map((book) => ({
+                id: book.id,
+                name: book.name,
+                publisher: book.publisher,
+            })),
         },
     });
 
